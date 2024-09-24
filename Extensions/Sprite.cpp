@@ -169,6 +169,13 @@ void* TFT_eSprite::callocSprite(int16_t w, int16_t h, uint8_t frames)
       //Serial.println("PSRAM");
     }
     else
+#elif defined(RP2350_PSRAM_CS)
+    if (true)
+    {
+      ptr8 = ( uint8_t*) pcalloc((frames * w * h + frames), sizeof(uint16_t));
+      //bzero(ptr8, (frames * w * h + frames) * sizeof(uint16_t));
+    }
+    else
 #endif
     {
       ptr8 = ( uint8_t*) calloc(frames * w * h + frames, sizeof(uint16_t));
@@ -181,6 +188,13 @@ void* TFT_eSprite::callocSprite(int16_t w, int16_t h, uint8_t frames)
 #if defined (ESP32) && defined (CONFIG_SPIRAM_SUPPORT)
     if ( psramFound() && _psram_enable ) ptr8 = ( uint8_t*) ps_calloc(frames * w * h + frames, sizeof(uint8_t));
     else
+#elif defined(RP2350_PSRAM_CS)
+    if (true) {
+      ptr8 = ( uint8_t*)pcalloc((frames * w * h + frames), sizeof(uint8_t));
+      //bzero(ptr8, (frames * w * h + frames) * sizeof(uint8_t));
+      Serial.println("PSRAM 8bpp");
+    }
+    else
 #endif
     ptr8 = ( uint8_t*) calloc(frames * w * h + frames, sizeof(uint8_t));
   }
@@ -191,6 +205,13 @@ void* TFT_eSprite::callocSprite(int16_t w, int16_t h, uint8_t frames)
     _iwidth = w;
 #if defined (ESP32) && defined (CONFIG_SPIRAM_SUPPORT)
     if ( psramFound() && _psram_enable ) ptr8 = ( uint8_t*) ps_calloc(((frames * w * h) >> 1) + frames, sizeof(uint8_t));
+    else
+#elif defined(RP2350_PSRAM_CS)
+    if (true) {
+      ptr8 = ( uint8_t*)pcalloc((((frames * w * h) >> 1) + frames), sizeof(uint8_t));
+      //bzero(ptr8, (((frames * w * h) >> 1) + frames) * sizeof(uint8_t));
+      Serial.println("PSRAM 4bpp");
+    }
     else
 #endif
     ptr8 = ( uint8_t*) calloc(((frames * w * h) >> 1) + frames, sizeof(uint8_t));
@@ -208,6 +229,13 @@ void* TFT_eSprite::callocSprite(int16_t w, int16_t h, uint8_t frames)
 
 #if defined (ESP32) && defined (CONFIG_SPIRAM_SUPPORT)
     if ( psramFound() && _psram_enable ) ptr8 = ( uint8_t*) ps_calloc(frames * (w>>3) * h + frames, sizeof(uint8_t));
+    else
+#elif defined(RP2350_PSRAM_CS)
+    if (true) {
+      ptr8 = ( uint8_t*) pcalloc((frames * (w>>3) * h + frames), sizeof(uint8_t));
+      //bzero(ptr8, (frames * (w>>3) * h + frames) * sizeof(uint8_t));
+      Serial.println("PSRAM 1bpp");
+    }
     else
 #endif
     ptr8 = ( uint8_t*) calloc(frames * (w>>3) * h + frames, sizeof(uint8_t));
