@@ -173,7 +173,7 @@ void* TFT_eSprite::callocSprite(int16_t w, int16_t h, uint8_t frames)
     if (true)
     {
       ptr8 = ( uint8_t*) pcalloc((frames * w * h + frames), sizeof(uint16_t));
-      //bzero(ptr8, (frames * w * h + frames) * sizeof(uint16_t));
+      //Serial.println("PSRAM 16bpp");
     }
     else
 #endif
@@ -191,8 +191,7 @@ void* TFT_eSprite::callocSprite(int16_t w, int16_t h, uint8_t frames)
 #elif defined(RP2350_PSRAM_CS)
     if (true) {
       ptr8 = ( uint8_t*)pcalloc((frames * w * h + frames), sizeof(uint8_t));
-      //bzero(ptr8, (frames * w * h + frames) * sizeof(uint8_t));
-      Serial.println("PSRAM 8bpp");
+      //Serial.println("PSRAM 8bpp");
     }
     else
 #endif
@@ -209,8 +208,7 @@ void* TFT_eSprite::callocSprite(int16_t w, int16_t h, uint8_t frames)
 #elif defined(RP2350_PSRAM_CS)
     if (true) {
       ptr8 = ( uint8_t*)pcalloc((((frames * w * h) >> 1) + frames), sizeof(uint8_t));
-      //bzero(ptr8, (((frames * w * h) >> 1) + frames) * sizeof(uint8_t));
-      Serial.println("PSRAM 4bpp");
+      //Serial.println("PSRAM 4bpp");
     }
     else
 #endif
@@ -233,8 +231,7 @@ void* TFT_eSprite::callocSprite(int16_t w, int16_t h, uint8_t frames)
 #elif defined(RP2350_PSRAM_CS)
     if (true) {
       ptr8 = ( uint8_t*) pcalloc((frames * (w>>3) * h + frames), sizeof(uint8_t));
-      //bzero(ptr8, (frames * (w>>3) * h + frames) * sizeof(uint8_t));
-      Serial.println("PSRAM 1bpp");
+      //Serial.println("PSRAM 1bpp");
     }
     else
 #endif
